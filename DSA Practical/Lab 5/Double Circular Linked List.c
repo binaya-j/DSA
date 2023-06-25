@@ -18,6 +18,8 @@ void add_at_begin(int data){
 	n->prev=NULL;	
 	if(start==NULL){
 		start=n;
+		start->next=start;
+		start->prev=start;
 	}
 	else{
 		start->prev->next=n;
@@ -35,6 +37,8 @@ void add_at_last(int data){
 	n->prev=NULL;
 	if(start==NULL){
 		start=n;
+		start->next=start;
+		start->prev=start;
 	}
 	else{
 		struct Node *temp=start->prev;
@@ -52,6 +56,8 @@ void add_at_Pos(int data,int pos){
 	n->prev=NULL;
 	if(start==NULL){
 		start=n;
+		start->next=start;
+		start->prev=start;
 	}
 	else{
 		struct Node *temp=start;
@@ -122,8 +128,9 @@ void delete_at_Pos(int pos){
 
 void display(){
 	struct Node *temp=start;
+	printf("%d ",start->data);
 	while(temp->next!=start){
-		printf("%d ",temp->data);
+		printf("%d ",temp->next->data);
 		temp=temp->next;
 	}
 	printf("\n");
