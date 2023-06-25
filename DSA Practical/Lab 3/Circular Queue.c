@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 
 #define size 5
 int cq[size];
@@ -6,63 +7,60 @@ int front=-1;
 int rear=-1;
 
 int isEmpty(){
-	return front==-1?(printf("The Queue is Empty.\n"),1):0;
+	return front==-1;
 }
 int isFull(){
-	return ((rear-front)==size-1)||(front=0 && rear==size-1)?(printf("The Queue is Full.\n"),1):0;
+	return front==(rear+1)%size;
 }
 void enque(int data){
-	if(!isFull()){
-		if(front=-1)
+	if(isFull()){
+		printf("\nQueue is Full.\n");	
+	}
+	else{
+		if(isEmpty()){
 			front=0;
-		if(rear==size-1&&front !=0)
-			rear=-1;
-		rear++;
-		if(rear==size)
-			rear=0;
+		}
+		rear=(rear+1)%size;
 		cq[rear]=data;
 	}
 }
 void deque(){
-	if(!isEmpty()){
-		printf("%d Dequeued.\n",cq[front]);
-	if(front==rear){
-		front=-1;
-		rear=-1;
+	if(isEmpty()){
+		printf("Queue is Empty.\n");
 	}
 	else{
-		front++;
-		if(front==size)
-			front=0;
-	}
-}
-}
-void peek(){
-	printf("%d is at peek.\n",cq[front]);
-}
-void display(){
-	if(!isEmpty()){
-		printf("Queue Elements: ");
-		int i=front;
-		if(front<=rear){
-			while(i<=rear){
-				printf("%d ",cq[i]);
-				i++;
-			}
+		printf("%d is Dequeued.\n",cq[front]);
+		if(front==rear){
+			front=-1;
+			rear=-1;
 		}
 		else{
-			while(i<size){
-				printf("%d ",cq[i]);
-				i++;
-			}
-			i=0;
-			while(i<=rear){
-				printf("%d ",cq[i]);
-				i++;
-			}
+			front=(front+1)%size;
 		}
-		printf("\n");
 	}
+}
+
+void peek(){
+	if(isEmpty()){
+		printf("Queue is Empty.\n");
+	}
+	else{
+		printf("%d is at the front.\n",cq[front]);
+	}
+}
+void display(){
+	int i;
+	if(isEmpty()){
+		printf("The Queue is Empty.\n");
+	}
+	else{
+		printf("The Queue is : \n");
+		for(i=front;i!=rear;i=(i+1)%size){
+			printf("%d ",cq[i]);
+		}
+		printf("%d \n",cq[i]);
+	}
+
 }
 
 int main(){
